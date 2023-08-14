@@ -1,8 +1,25 @@
 version = 0.1
-[default.deploy.parameters]
+
+[default]
+[default.global.parameters]
 stack_name = "state-machine"
+
+[default.build.parameters]
+cached = true
+parallel = true
+
+[default.validate.parameters]
+lint = true
+
+[default.deploy.parameters]
 resolve_s3 = true
 s3_prefix = "state-machine"
 region = "us-west-2"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
+
+[default.package.parameters]
+resolve_s3 = true
+
+[default.sync.parameters]
+watch = true
