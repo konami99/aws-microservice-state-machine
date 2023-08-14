@@ -1,0 +1,8 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "state-machine"
+resolve_s3 = true
+s3_prefix = "state-machine"
+region = "us-west-2"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []

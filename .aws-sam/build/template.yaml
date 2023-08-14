@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Sample template to deliver events from Amazon EventBridge to CloudWatch
+  Logs
+Resources:
+  LogsRule:
+    Type: AWS::Events::Rule
+    Properties:
+      EventBusName: default
+      EventPattern:
+        source:
+        - demo.event
+        account:
+        - Ref: AWS::AccountId
+      Targets:
+      - Arn:
+          Fn::GetAtt:
+          - LogGroupForEvents
+          - Arn
+        Id: LogTarget
+  LogGroupForEvents:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/events/state-machine-test
+  LogGroupForEventsPolicy:
+    Type: AWS::Logs::ResourcePolicy
+    Properties:
+      PolicyName: EventBridgeToCWLogsPolicy
+      PolicyDocument:
+        Fn::Sub: "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n \
+          \     \"Sid\": \"EventBridgetoCWLogsCreateLogStreamPolicy\",\n      \"Effect\"\
+          : \"Allow\",\n      \"Principal\": {\n        \"Service\": [\n         \
+          \ \"events.amazonaws.com\"\n        ]\n      },\n      \"Action\": [\n \
+          \       \"logs:CreateLogStream\"\n      ],\n      \"Resource\": [\n    \
+          \    \"${LogGroupForEvents.Arn}\"\n      ]\n    },\n    {\n      \"Sid\"\
+          : \"EventBridgetoCWLogsPutLogEventsPolicy\",\n      \"Effect\": \"Allow\"\
+          ,\n      \"Principal\": {\n        \"Service\": [\n          \"events.amazonaws.com\"\
+          \n        ]\n      },\n      \"Action\": [\n        \"logs:PutLogEvents\"\
+          \n      ],\n      \"Resource\": [\n        \"${LogGroupForEvents.Arn}\"\n\
+          \      ],\n      \"Condition\": {\n        \"ArnEquals\": {\"AWS:SourceArn\"\
+          : \"${LogsRule.Arn}\"}\n      }\n    }\n  ]\n}"
