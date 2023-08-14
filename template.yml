@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Description: Sample template to deliver events from Amazon EventBridge to CloudWatch Logs
 
 Resources:
