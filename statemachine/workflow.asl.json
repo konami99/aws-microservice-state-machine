@@ -4,8 +4,7 @@
   "States": {
     "Pass": {
       "Type": "Pass",
-      "End": true,
-      "InputPath": "$.detail"
+      "End": true
     }
   }
 }
