@@ -59,7 +59,7 @@ Resources:
             InputPath: $.detail
             Pattern:
               source:
-                - aws.lambda
+                - demo.event
 
   LogsRule:
     Type: AWS::Events::Rule
