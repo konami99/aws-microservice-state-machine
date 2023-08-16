@@ -22,30 +22,7 @@ Resources:
           Action:
           - logs:*
           Resource: '*'
-      Definition:
-        StartAt: What Happened?
-        States:
-          What Happened?:
-            Type: Choice
-            Choices:
-            - Variable: $.state
-              StringEquals: running
-              Next: It's Running
-            - Variable: $.state
-              StringEquals: stopped
-              Next: It's Stopped
-            - Variable: $.state
-              StringEquals: terminated
-              Next: It's Gone
-          It's Running:
-            Type: Pass
-            End: true
-          It's Stopped:
-            Type: Pass
-            End: true
-          It's Gone:
-            Type: Pass
-            End: true
+      DefinitionUri: ../../statemachine/workflow.asl.json
       Events:
         StateChange:
           Type: EventBridgeRule
@@ -54,7 +31,7 @@ Resources:
             InputPath: $.detail
             Pattern:
               source:
-              - aws.lambda
+              - demo.event
   LogsRule:
     Type: AWS::Events::Rule
     Properties:
