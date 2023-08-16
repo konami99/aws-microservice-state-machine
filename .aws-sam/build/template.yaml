@@ -1,7 +1,60 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Description: Sample template to deliver events from Amazon EventBridge to CloudWatch
   Logs
 Resources:
+  StateMachineLogs:
+    Type: AWS::Logs::LogGroup
+  StateMachineForWeatherData:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Logging:
+        Level: ERROR
+        Destinations:
+        - CloudWatchLogsLogGroup:
+            LogGroupArn:
+              Fn::GetAtt:
+              - StateMachineLogs
+              - Arn
+      Policies:
+      - Statement:
+        - Effect: Allow
+          Action:
+          - logs:*
+          Resource: '*'
+      Definition:
+        StartAt: What Happened?
+        States:
+          What Happened?:
+            Type: Choice
+            Choices:
+            - Variable: $.state
+              StringEquals: running
+              Next: It's Running
+            - Variable: $.state
+              StringEquals: stopped
+              Next: It's Stopped
+            - Variable: $.state
+              StringEquals: terminated
+              Next: It's Gone
+          It's Running:
+            Type: Pass
+            End: true
+          It's Stopped:
+            Type: Pass
+            End: true
+          It's Gone:
+            Type: Pass
+            End: true
+      Events:
+        StateChange:
+          Type: EventBridgeRule
+          Properties:
+            EventBusName: default
+            InputPath: $.detail
+            Pattern:
+              source:
+              - aws.lambda
   LogsRule:
     Type: AWS::Events::Rule
     Properties:
