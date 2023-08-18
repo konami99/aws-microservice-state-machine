@@ -1,9 +1,24 @@
 {
   "Comment": "A description of my state machine",
-  "StartAt": "Pass",
+  "StartAt": "DynamoDB PutItem",
   "States": {
-    "Pass": {
-      "Type": "Pass",
+    "DynamoDB PutItem": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::dynamodb:putItem",
+      "Parameters": {
+        "TableName": "weatherdata",
+        "Item": {
+          "timestamp": {
+            "S.$": "$.time"
+          },
+          "temperature": {
+            "N.$": "$.temp"
+          },
+          "humidity": {
+            "N.$": "$.humidity"
+          }
+        }
+      },
       "End": true
     }
   }
