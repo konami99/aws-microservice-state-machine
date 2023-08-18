@@ -6,7 +6,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::dynamodb:putItem",
       "Parameters": {
-        "TableName": "weatherdata",
+        "TableName": "newweatherdata",
         "Item": {
           "timestamp": {
             "S.$": "$.time"
