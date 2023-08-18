@@ -24,7 +24,7 @@ Resources:
       # Logging is a good idea. We also need at least one policy attached to the Step
       # Function in order to deploy.
       Logging:
-        Level: ERROR
+        Level: ALL
         Destinations:
           - CloudWatchLogsLogGroup:
               LogGroupArn: !GetAtt StateMachineLogs.Arn
