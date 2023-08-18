@@ -12,10 +12,10 @@
             "S.$": "$.time"
           },
           "temperature": {
-            "N.$": "$.temp"
+            "N.$": "States.JsonToString($.temp)"
           },
           "humidity": {
-            "N.$": "$.humidity"
+            "N.$": "States.JsonToString($.humidity)"
           }
         }
       },
