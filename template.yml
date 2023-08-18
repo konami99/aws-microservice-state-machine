@@ -28,12 +28,6 @@ Resources:
         Destinations:
           - CloudWatchLogsLogGroup:
               LogGroupArn: !GetAtt StateMachineLogs.Arn
-      Policies:
-        - Statement:
-          - Effect: Allow
-            Action:
-              - logs:*
-            Resource: "*"
       DefinitionUri: statemachine/workflow.asl.json
       Events:
         StateChange:
@@ -69,6 +63,14 @@ Resources:
                 Action:
                   - dynamodb:PutItem
                 Resource: !GetAtt MyDdbTable.Arn
+        - PolicyName: LogPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:*
+                Resource: "*"
 
   LogsRule:
     Type: AWS::Events::Rule
