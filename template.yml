@@ -3,6 +3,18 @@ Transform: AWS::Serverless-2016-10-31
 Description: Sample template to deliver events from Amazon EventBridge to CloudWatch Logs
 
 Resources:
+  MyDdbTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      TableName: weatherdata
+
   StateMachineLogs:
     Type: AWS::Logs::LogGroup
 
@@ -34,6 +46,29 @@ Resources:
             Pattern:
               source:
                 - demo.event
+      Role: !GetAtt MyStateMachineExecutionRole.Arn
+
+  MyStateMachineExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - !Sub states.${AWS::Region}.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: DDBPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                Resource: !GetAtt MyDdbTable.Arn
 
   LogsRule:
     Type: AWS::Events::Rule
