@@ -1,7 +1,30 @@
 {
   "Comment": "A description of my state machine",
-  "StartAt": "DynamoDB PutItem",
+  "StartAt": "Choice",
   "States": {
+    "Choice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "And": [
+            {
+              "Variable": "$.temp",
+              "IsPresent": true
+            },
+            {
+              "Variable": "$.humidity",
+              "IsPresent": true
+            },
+            {
+              "Variable": "$.time",
+              "IsPresent": true
+            }
+          ],
+          "Next": "DynamoDB PutItem"
+        }
+      ],
+      "Default": "Pass"
+    },
     "DynamoDB PutItem": {
       "Type": "Task",
       "Resource": "arn:aws:states:::dynamodb:putItem",
@@ -19,6 +42,10 @@
           }
         }
       },
+      "End": true
+    },
+    "Pass": {
+      "Type": "Pass",
       "End": true
     }
   }
