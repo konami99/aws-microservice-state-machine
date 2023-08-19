@@ -18,6 +18,10 @@
             {
               "Variable": "$.time",
               "IsPresent": true
+            },
+            {
+              "Variable": "$.city",
+              "IsPresent": true
             }
           ],
           "Next": "DynamoDB PutItem"
@@ -33,6 +37,9 @@
         "Item": {
           "timestamp": {
             "S.$": "$.time"
+          },
+          "city": {
+            "S.$": "$.city"
           },
           "temperature": {
             "N.$": "States.JsonToString($.temp)"
