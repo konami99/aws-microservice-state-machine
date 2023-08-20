@@ -39,7 +39,7 @@
             "S.$": "$.city"
           },
           "datetime": {
-            "N.$": "States.JsonToString($.time)"
+            "N.$": "$.time"
           },
           "temperature": {
             "N.$": "States.JsonToString($.temp)"
