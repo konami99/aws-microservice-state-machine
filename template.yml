@@ -10,14 +10,14 @@ Resources:
         - AttributeName: city
           AttributeType: S
         - AttributeName: datetime
-          AttributeType: S
+          AttributeType: N
       BillingMode: PAY_PER_REQUEST
       KeySchema:
         - AttributeName: city
           KeyType: HASH
         - AttributeName: datetime
           KeyType: RANGE
-      TableName: weatherdata
+      TableName: newweatherdata
 
   StateMachineLogs:
     Type: AWS::Logs::LogGroup
