@@ -10,7 +10,7 @@ Resources:
         - AttributeName: city
           AttributeType: S
         - AttributeName: datetime
-          AttributeType: N
+          AttributeType: S
       BillingMode: PAY_PER_REQUEST
       KeySchema:
         - AttributeName: city
