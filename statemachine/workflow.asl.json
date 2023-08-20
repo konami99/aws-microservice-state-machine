@@ -36,7 +36,7 @@
         "TableName": "newweatherdata",
         "Item": {
           "city.$": "$.city",
-          "datetime.$": "$.time",
+          "datetime.$": "States.JsonToString($.time)",
           "temperature.$": "States.JsonToString($.temp)",
           "humidity.$": "States.JsonToString($.humidity)"
         }
