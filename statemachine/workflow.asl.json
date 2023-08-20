@@ -35,11 +35,11 @@
       "Parameters": {
         "TableName": "newweatherdata",
         "Item": {
-          "datetime": {
-            "N.$": "$.time"
-          },
           "city": {
             "S.$": "$.city"
+          },
+          "datetime": {
+            "N.$": "$.time"
           },
           "temperature": {
             "N.$": "States.JsonToString($.temp)"
