@@ -2,11 +2,15 @@
 
 ![weather_monitor drawio](https://github.com/konami99/aws-microservice-data-fetcher/assets/166879/43487afb-b5ec-4b2c-84b8-a1ec66d29812)
 
-This repo is the "state machine" part of the weather monitor. It is comprised of Step Functions and DynamoDB. Step Functions subscribes the weather data event in Event Bridge, and then insert the data into DynamoDB.
+Part 1 "data fetcher" can be found [here](https://github.com/konami99/aws-microservice-data-fetcher)
+
+This repo is the "state machine" part of the weather monitor. It is comprised of Step Functions and DynamoDB. Step Functions subscribes the weather data event from Event Bridge, and then insert the data into DynamoDB.
 
 ## Step Functions
 
 This part says Step Functions subscribes the `demo.event` (I haven't got time to update this to a more appropriate name, but it's the weather event) from the default Event Bridge.
+
+`template.yml`
 
 <img width="1023" alt="Screen Shot 2023-09-06 at 8 01 00 pm" src="https://github.com/konami99/aws-microservice-state-machine/assets/166879/a227879b-7475-4163-bddd-d26f8ad81837">
 
@@ -17,6 +21,8 @@ How was the Step Functions definition (`workflow.asl.json`) generated? Well I fo
 Once I was happy with the flow, I exported the flow to json, and put it in my project folder (`statemachine/workflow.asl.json`).
 
 The rule is simple: if temperature, humidity, time and city exist, insert the weather data into DynamoDB. Otherwise go to end state (do nothing).
+
+`statemachine/workflow.asl.json`
 
 <img width="475" alt="Screen Shot 2023-09-06 at 9 23 49 pm" src="https://github.com/konami99/aws-microservice-state-machine/assets/166879/c007d734-fb6b-46a6-9468-fed181efad34">
 
@@ -39,6 +45,8 @@ Step Functions has various input and output variables. I found [this blog and it
 ## DynamoDB
 
 Weather data is being inserted into DynamoDB by Step Functions. Here's the definition of DynamoDB table:
+
+`template.yml`
 
 <img width="506" alt="Screen Shot 2023-09-06 at 9 33 05 pm" src="https://github.com/konami99/aws-microservice-state-machine/assets/166879/55603fab-bd5e-4016-8a4a-29ac91b8bffe">
 
