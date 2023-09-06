@@ -35,3 +35,15 @@ There are some resources to test Step Functions. I encourage you to take a look.
 ## Step Functions Transformation
 
 Step Functions has various input and output variables. I found [this blog and its sample application](https://aws.amazon.com/blogs/compute/using-jsonpath-effectively-in-aws-step-functions/) are really helpful explaining them.
+
+## DynamoDB
+
+Weather data is being inserted into DynamoDB by Step Functions. Here's the definition of DynamoDB table:
+
+<img width="506" alt="Screen Shot 2023-09-06 at 9 33 05 pm" src="https://github.com/konami99/aws-microservice-state-machine/assets/166879/55603fab-bd5e-4016-8a4a-29ac91b8bffe">
+
+Hash Key is "city" and Range Key is "datetime" (in unix time) because I want to query the DynamoDB by city, and sort the temperature data by time.
+
+Here's what data looks like in DynamoDB:
+
+<img width="1061" alt="Screen Shot 2023-09-06 at 9 37 24 pm" src="https://github.com/konami99/aws-microservice-state-machine/assets/166879/a3d7b30b-502c-4f00-ab77-ec74299b0d53">
