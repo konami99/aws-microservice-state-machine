@@ -1,8 +1,14 @@
-# Weather data state machine
+<img width="86" alt="Screen Shot 2023-09-09 at 11 36 30 pm" src="https://github.com/konami99/aws-microservice-data-visualiser/assets/166879/cd5e4bb5-b0c0-423b-b4ea-338d656acee2">
+<img width="92" alt="Screen Shot 2023-09-09 at 11 43 45 pm" src="https://github.com/konami99/aws-microservice-data-visualiser/assets/166879/2bc76552-0f82-47ec-8803-9a43cc1f9f62">
+<img width="165" alt="Screen Shot 2023-09-09 at 11 38 01 pm" src="https://github.com/konami99/aws-microservice-data-visualiser/assets/166879/349bc8cf-4a8e-4832-b8b7-bad798b2bbb3">
+
+# Building a weather monitor with SAM and Terraform
 
 ![weather_monitor drawio](https://github.com/konami99/aws-microservice-data-fetcher/assets/166879/43487afb-b5ec-4b2c-84b8-a1ec66d29812)
 
-Part 1 "data fetcher" can be found [here](https://github.com/konami99/aws-microservice-data-fetcher)
+Part 1 - [Weather data fetcher](https://github.com/konami99/aws-microservice-data-fetcher)
+
+Part 3 - [Weather data visualiser](https://github.com/konami99/aws-microservice-data-visualiser)
 
 This repo is the "state machine" part of the weather monitor. It is comprised of Step Functions and DynamoDB. Step Functions subscribes the weather data event from Event Bridge, and then insert the data into DynamoDB.
 
